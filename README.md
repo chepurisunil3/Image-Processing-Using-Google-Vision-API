@@ -1,40 +1,59 @@
- 
+# Sunny Assignment (React + Node.js)
 
-Technologies Used:
-    NodeJS - For Backend functionalities
-    MongoDB - Database for storing the user and history data
-    Angular - Dynamic framework for making Single page Websites and two way data binding
-    JQuery -  for interacting with HTML Views
-    Javascript -  for interacting with HTML Views
+## Stack
 
-Updates Done:
-    -> `set GOOGLE_APPLICATION_CREDENTIALS=jsonfile.json` for windows and for mac `export GOOGLE_APPLICATION_CREDENTIALS=jsonfile.json`
-    -> Initial server setup
-    -> Adding required Plugins
-    -> Working on Frontend APIs
-    -> Designing the Pages
-    -> Complete the functioning
-    -> Adding basic mobile Responsive
+- Backend: Node.js (Express, MongoDB, Google Vision OCR)
+- Frontend: React + Vite
+- Database: MongoDB
 
-Features:
-    -> Login or registration page for saving the previous searches with their details so that the users can recheck their history
-    -> Automatic Data saving when processing the image from backend
-    -> Single page website with different components.
-    -> Each component has unique functionalities and can communicate with parent component
-    -> Basic mobile responsive
+## Features
 
+- Login and registration with session persistence
+- Upload image and extract text using Google Vision API
+- Save and view previous OCR history by user
+- Mobile responsive single-page UI
 
-How to Run:
+## Prerequisites
 
-    1. Make sure you have mongodb in your system and it is running.
-        -> To start mongodb, after installing find the path of your mongod.exe (Usual file path in windows is C:\Program Files\MongoDB\Server\version\bin\mongod.exe and in Mac ~/mongodb/bin/mongod). copy and paste the path in terminal and enter. MongoDb will be started.
-    
-    2. Make sure you have installed nodeJS and after pasting this complete code in a folder, go to the root of this folder i.e till Assignment in terminal and run the command -> `npm update` (This will install the required plugins and now you are ready to run the NodeJS Server Code).
+- Node.js 20+
+- MongoDB running locally (`mongodb://localhost:27017` by default)
+- Google Vision credentials JSON file
 
-    3. After the step 2, from the same path, run the command -> `node index.js` (This will start our nodeJS server and ready to listen for api calls)
+Set credentials before starting backend:
 
-    4. Now Make sure you have installed angular cli. After installing the angular, go the child folder 'Ymir/' and then run the command -> `node update` (This will install the required plugins and now we are ready to start our angular project )
+- Windows: `set GOOGLE_APPLICATION_CREDENTIALS=My Custom Project-00b9a5618780.json`
+- macOS/Linux: `export GOOGLE_APPLICATION_CREDENTIALS=My Custom Project-00b9a5618780.json`
 
-    5. Now run the command -> `ng serve` (This will start the angular server and after the compiling is done, you will see the status as 'Server is listening on localhost:4200, open your browser on http://localhost:4200/').
+## Repository Structure
 
-    6. Open the browser window and type localhost:4200 and you will see the web Pages.
+- `backend/` - Node.js API, OCR integration, MongoDB access
+- `frontend/` - React + Vite web app
+
+## Run
+
+1. Install backend dependencies:
+   - `cd backend`
+   - `npm install`
+2. Start backend API server:
+   - `npm start`
+3. In another terminal, install frontend dependencies:
+   - `cd frontend`
+   - `npm install`
+4. Start frontend dev server:
+   - `npm run dev`
+5. Open `http://localhost:4200`
+
+## Backend Endpoints
+
+- `GET /health/vision` (validates Google Vision credential configuration)
+- `POST /saveUserDetails`
+- `GET /userLogin`
+- `GET /getHistoryData`
+- `POST /getTextFromFile`
+
+## Verify Vision Setup Before OCR
+
+After setting a service account JSON file, call `GET http://localhost:3000/health/vision`.
+
+- `200` + `success: true` means credentials are valid and Vision client auth is working.
+- `503` + `success: false` means credentials are missing/invalid and OCR calls will fail.

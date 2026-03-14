@@ -1,7 +1,0 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-header (logoutUser)="onLogout($event)" *ngIf="isLoggedIn"></app-header>
-<app-main *ngIf="isLoggedIn"></app-main>
-<app-login (loginDone)="onLogin($event)" *ngIf="!isLoggedIn"></app-login>
-<router-outlet>
- 
-</router-outlet>

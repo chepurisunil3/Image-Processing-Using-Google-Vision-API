@@ -1,0 +1,28 @@
+{
+  "name": "sunny-assignment",
+  "version": "2.0.0",
+  "description": "Assignment For Full Stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "author": "Sunil",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google-cloud/vision": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "express-fileupload": "latest",
+    "method-override": "latest",
+    "mongodb": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  }
+}

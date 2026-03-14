@@ -1,0 +1,91 @@
+.app-header {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 1rem auto 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-strong) 0%,
+    var(--primary) 100%
+  );
+  box-shadow: var(--shadow);
+  color: #fff;
+}
+
+.header-content {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-brand h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.header-brand p {
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+  opacity: 0.9;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-badge {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.header-actions button {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #fff;
+  color: var(--primary-strong);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.header-actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (max-width: 768px) {
+  .app-header {
+    width: calc(100% - 1rem);
+    border-radius: 14px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .header-brand h2 {
+    font-size: 1.1rem;
+  }
+
+  .header-brand p {
+    font-size: 0.82rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
