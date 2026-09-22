@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const bcrypt = require("bcryptjs");
 const { Router } = require("express");
 const appConfig = require("../config/appConfig");
 const {
@@ -28,17 +29,18 @@ const createApiRoutes = ({ db, imageIdStore }) => {
     const existingUser = await db.collection("users").findOne({ email });
 
     if (existingUser) {
-      return response.status(202).json({
+      return response.status(409).json({
         success: false,
         message: "This Email is Already Registered",
       });
     }
 
     try {
+      const hashedPassword = await bcrypt.hash(password, 10);
       await db.collection("users").insertOne({
         email,
         username: name,
-        password,
+        password: hashedPassword,
       });
 
       return response.status(200).json({
@@ -46,7 +48,7 @@ const createApiRoutes = ({ db, imageIdStore }) => {
         message: "Registration Success",
       });
     } catch (error) {
-      return response.status(402).json({
+      return response.status(500).json({
         success: false,
         message: error.message,
       });
@@ -60,20 +62,25 @@ const createApiRoutes = ({ db, imageIdStore }) => {
     const user = await db.collection("users").findOne({ email });
 
     if (!user) {
-      return response.status(202).json({
+      return response.status(401).json({
         success: false,
         message: "Email not registered",
       });
     }
 
-    if (user.password !== password) {
-      return response.status(202).json({
+    const passwordMatches = await bcrypt.compare(
+      password || "",
+      user.password || "",
+    );
+
+    if (!passwordMatches) {
+      return response.status(401).json({
         success: false,
         message: "Invalid Password",
       });
     }
 
-    return response.status(202).json({
+    return response.status(200).json({
       success: true,
       message: "Login Success",
       username: user.username,
@@ -128,7 +135,7 @@ const createApiRoutes = ({ db, imageIdStore }) => {
         text: processedText,
       });
     } catch (error) {
-      return response.status(202).json({
+      return response.status(500).json({
         success: false,
         message: error.message || "Internal Error in API",
       });

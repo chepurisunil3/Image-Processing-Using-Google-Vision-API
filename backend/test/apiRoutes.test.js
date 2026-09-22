@@ -92,7 +92,7 @@ test("POST /saveUserDetails returns duplicate email response", async () => {
       }),
     });
 
-    assert.equal(response.status, 202);
+    assert.equal(response.status, 409);
     assert.equal(body.success, false);
     assert.equal(body.message, "This Email is Already Registered");
   } finally {
@@ -141,7 +141,7 @@ test("GET /userLogin returns invalid password for wrong credentials", async () =
       "/userLogin?email=user%40example.com&password=wrong",
     );
 
-    assert.equal(response.status, 202);
+    assert.equal(response.status, 401);
     assert.equal(body.success, false);
     assert.equal(body.message, "Invalid Password");
   } finally {

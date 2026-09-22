@@ -14,6 +14,7 @@ function Main({ userData }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(null);
+  const [uploadError, setUploadError] = useState("");
   const fileInputRef = useRef(null);
 
   const loadHistory = async () => {
@@ -42,6 +43,7 @@ function Main({ userData }) {
     setSelectedHistoryIndex(null);
     setPreviewImage(URL.createObjectURL(selectedFile));
     setIsProcessing(true);
+    setUploadError("");
 
     try {
       const response = await getTextFromImage(userData.email, selectedFile);
@@ -49,7 +51,11 @@ function Main({ userData }) {
         setIsTextProcessed(true);
         setProcessedText(response.text || "");
         await loadHistory();
+      } else {
+        setUploadError(response.message || "Failed to process image.");
       }
+    } catch (error) {
+      setUploadError("Unable to process request. Please try again.");
     } finally {
       setIsProcessing(false);
       event.target.value = "";
@@ -131,6 +137,7 @@ function Main({ userData }) {
               style={{ display: "none" }}
             />
           </div>
+          {uploadError && <h4 className="upload-error">{uploadError}</h4>}
 
           <div className="processed-text">
             <div className="processed-headings">
